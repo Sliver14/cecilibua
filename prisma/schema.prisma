@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Registration {
+  id              String   @id @default(cuid())
+  name            String
+  email           String   @unique
+  whatsapp        String
+  location        String
+  status          Status   @default(PENDING)
+  amount          Float
+  transactionNote String?  @unique
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+enum Status {
+  PENDING
+  PAID
+}

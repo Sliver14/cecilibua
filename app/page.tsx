@@ -27,15 +27,39 @@ const EventBackground = () => (
 
 const RegistrationModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    whatsapp: '',
+    email: '',
+    location: '',
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    await new Promise(r => setTimeout(r, 1500))
-    setIsSuccess(true)
-    setIsLoading(false)
-    setTimeout(() => { setIsSuccess(false); onClose(); }, 3000)
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+      const data = await res.json()
+      if (data.success) {
+        // Redirect to Selar
+        window.location.href = data.paymentUrl
+      } else {
+        alert(data.error || 'Something went wrong')
+      }
+    } catch (err) {
+      console.error(err)
+      alert('Failed to register. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -49,54 +73,46 @@ const RegistrationModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =
           >
             <button onClick={onClose} className="absolute top-6 right-6 text-white/40 hover:text-[#a3e635] transition-colors"><X /></button>
             
-            {isSuccess ? (
-              <div className="text-center py-10">
-                <CheckCircle className="w-20 h-20 text-[#a3e635] mx-auto mb-6" />
-                <h3 className="text-3xl font-black text-white italic tracking-tighter uppercase">Registration Received</h3>
-                <p className="text-[#a3e635] font-bold mt-2">Check your WhatsApp/Email for payment instructions to secure your seat.</p>
+            <form onSubmit={onSubmit} className="space-y-6">
+              <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#ff3e03] rounded text-[10px] font-black text-white uppercase italic">Final Step</div>
+                  <h3 className="text-3xl font-black text-white leading-none uppercase italic tracking-tighter">Secure Your <span className="text-[#a3e635]">BluePrint</span></h3>
               </div>
-            ) : (
-              <form onSubmit={onSubmit} className="space-y-6">
-                <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#ff3e03] rounded text-[10px] font-black text-white uppercase italic">Final Step</div>
-                    <h3 className="text-3xl font-black text-white leading-none uppercase italic tracking-tighter">Secure Your <span className="text-[#a3e635]">BluePrint</span></h3>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-black text-[#a3e635] uppercase tracking-widest">Full Name</label>
-                    <input placeholder="Name" required className="w-full bg-white/5 border-b border-white/10 py-2 text-white outline-none focus:border-[#a3e635] transition-all" />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-black text-[#a3e635] uppercase tracking-widest">WhatsApp Number</label>
-                    <input type="tel" placeholder="+234..." required className="w-full bg-white/5 border-b border-white/10 py-2 text-white outline-none focus:border-[#a3e635] transition-all" />
-                  </div>
-                </div>
-
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                    <label className="text-[10px] font-black text-[#a3e635] uppercase tracking-widest">Email Address</label>
-                    <input type="email" placeholder="email@example.com" required className="w-full bg-white/5 border-b border-white/10 py-2 text-white outline-none focus:border-[#a3e635] transition-all" />
+                  <label className="text-[10px] font-black text-[#a3e635] uppercase tracking-widest">Full Name</label>
+                  <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" required className="w-full bg-white/5 border-b border-white/10 py-2 text-white outline-none focus:border-[#a3e635] transition-all" />
                 </div>
-
                 <div className="space-y-1">
-                    <label className="text-[10px] font-black text-[#a3e635] uppercase tracking-widest">Current Location (City & Country)</label>
-                    <input placeholder="Abuja, Nigeria" required className="w-full bg-white/5 border-b border-white/10 py-2 text-white outline-none focus:border-[#a3e635] transition-all" />
+                  <label className="text-[10px] font-black text-[#a3e635] uppercase tracking-widest">WhatsApp Number</label>
+                  <input name="whatsapp" value={formData.whatsapp} onChange={handleChange} type="tel" placeholder="+234..." required className="w-full bg-white/5 border-b border-white/10 py-2 text-white outline-none focus:border-[#a3e635] transition-all" />
                 </div>
+              </div>
 
-                <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
-                    <label className="flex gap-3 cursor-pointer group">
-                        <input type="checkbox" required className="mt-1 accent-[#a3e635] h-4 w-4" />
-                        <span className="text-[11px] text-white/70 font-medium leading-relaxed group-hover:text-white transition-colors">
-                            I understand that this webinar costs <span className="text-[#a3e635] font-black italic">₦50,000</span> and I am ready to make payment to secure my seat.
-                        </span>
-                    </label>
-                </div>
+              <div className="space-y-1">
+                  <label className="text-[10px] font-black text-[#a3e635] uppercase tracking-widest">Email Address</label>
+                  <input name="email" value={formData.email} onChange={handleChange} type="email" placeholder="email@example.com" required className="w-full bg-white/5 border-b border-white/10 py-2 text-white outline-none focus:border-[#a3e635] transition-all" />
+              </div>
 
-                <button disabled={isLoading} className="w-full bg-[#a3e635] text-[#051e12] py-5 rounded-xl font-black tracking-tighter hover:bg-white transition-all flex items-center justify-center gap-3 italic text-lg shadow-lg">
-                  {isLoading ? <Loader2 className="animate-spin" /> : <>REGISTER & PAY ₦50,000 <ArrowRight size={20} /></>}
-                </button>
-              </form>
-            )}
+              <div className="space-y-1">
+                  <label className="text-[10px] font-black text-[#a3e635] uppercase tracking-widest">Current Location (City & Country)</label>
+                  <input name="location" value={formData.location} onChange={handleChange} placeholder="Abuja, Nigeria" required className="w-full bg-white/5 border-b border-white/10 py-2 text-white outline-none focus:border-[#a3e635] transition-all" />
+              </div>
+
+              <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
+                  <label className="flex gap-3 cursor-pointer group">
+                      <input type="checkbox" required className="mt-1 accent-[#a3e635] h-4 w-4" />
+                      <span className="text-[11px] text-white/70 font-medium leading-relaxed group-hover:text-white transition-colors">
+                          I understand that this webinar costs <span className="text-[#a3e635] font-black italic">₦50,000</span> and I am ready to make payment to secure my seat.
+                      </span>
+                  </label>
+              </div>
+
+              <button disabled={isLoading} className="w-full bg-[#a3e635] text-[#051e12] py-5 rounded-xl font-black tracking-tighter hover:bg-white transition-all flex items-center justify-center gap-3 italic text-lg shadow-lg">
+                {isLoading ? <Loader2 className="animate-spin" /> : <>REGISTER & PAY ₦50,000 <ArrowRight size={20} /></>}
+              </button>
+            </form>
           </motion.div>
         </div>
       )}
