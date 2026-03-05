@@ -150,20 +150,43 @@ export default function Home() {
             "From getting Listings to Consistently Closing Deals" — Get to know what Top Brokers Do Differently.
           </motion.p>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-16">
-            <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-3 rounded-2xl backdrop-blur-md">
-                <Calendar className="text-[#ff3e03]" size={20} />
-                <div className="text-left"><p className="text-[10px] font-black text-white/40 uppercase">Date</p><p className="text-sm font-black italic">Sat, 28th March</p></div>
-            </div>
-            <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-3 rounded-2xl backdrop-blur-md">
-                <Clock className="text-[#ff3e03]" size={20} />
-                <div className="text-left"><p className="text-[10px] font-black text-white/40 uppercase">Time</p><p className="text-sm font-black italic">6:00 PM – 8:00 PM</p></div>
-            </div>
-            <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-3 rounded-2xl backdrop-blur-md">
-                <Video className="text-[#a3e635]" size={20} />
-                <div className="text-left"><p className="text-[10px] font-black text-white/40 uppercase">Platform</p><p className="text-sm font-black italic">ZOOM WEBINAR</p></div>
-            </div>
+          <div className="w-full max-w-4xl mx-auto mb-12 px-4 sm:px-6 lg:px-8">
+            <Image
+              src="/mainflyer2.jpeg"
+              alt="The Real Estate Brokerage Blueprint Flyer"
+              width={800}               // ← safe placeholder width (can be 600–1200)
+              height={1200}             // ← placeholder height – make this larger if your flyer is very tall
+              className="w-full h-auto rounded-3xl shadow-lg block mx-auto"
+              sizes="(max-width: 640px) 92vw, (max-width: 1024px) 80vw, 800px"
+              priority
+            />
           </div>
+
+<div className="flex flex-nowrap justify-center gap-3 sm:gap-4 mb-12 md:mb-16">
+  <div className="flex items-center gap-2 sm:gap-3 bg-white/5 border border-white/10 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl backdrop-blur-md min-w-0">
+    <Calendar className="text-[#ff3e03] size-5 sm:size-[20px] shrink-0" />
+    <div className="text-left">
+      <p className="text-[9px] sm:text-[10px] font-black text-white/40 uppercase tracking-wide">Date</p>
+      <p className="text-xs sm:text-sm font-black italic">Sat, 28th March</p>
+    </div>
+  </div>
+
+  <div className="flex items-center gap-2 sm:gap-3 bg-white/5 border border-white/10 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl backdrop-blur-md min-w-0">
+    <Clock className="text-[#ff3e03] size-5 sm:size-[20px] shrink-0" />
+    <div className="text-left">
+      <p className="text-[9px] sm:text-[10px] font-black text-white/40 uppercase tracking-wide">Time</p>
+      <p className="text-xs sm:text-sm font-black italic">6:00 PM – 8:00 PM</p>
+    </div>
+  </div>
+
+  <div className="flex items-center gap-2 sm:gap-3 bg-white/5 border border-white/10 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl backdrop-blur-md min-w-0">
+    <Video className="text-[#a3e635] size-5 sm:size-[20px] shrink-0" />
+    <div className="text-left">
+      <p className="text-[9px] sm:text-[10px] font-black text-white/40 uppercase tracking-wide">Platform</p>
+      <p className="text-xs sm:text-sm font-black italic">ZOOM WEBINAR</p>
+    </div>
+  </div>
+</div>
 
           <button onClick={() => setIsModalOpen(true)} className="group relative bg-[#a3e635] text-[#051e12] px-14 py-6 rounded-full font-black italic text-xl tracking-tighter hover:bg-white hover:scale-105 transition-all shadow-[0_20px_50px_rgba(163,230,53,0.3)]">
             SECURE MY SEAT — ₦50,000
