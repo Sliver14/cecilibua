@@ -59,7 +59,7 @@ function SuccessContent() {
   }, [email])
 
   const joinWhatsApp = () => {
-    window.open('https://chat.whatsapp.com/your-link-here', '_blank')
+    window.open('https://chat.whatsapp.com/HQuDm1kXezD98Ith0bQkAr?mode=gi_t', '_blank')
   }
 
   if (status === 'LOADING') {
