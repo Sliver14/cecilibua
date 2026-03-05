@@ -162,7 +162,7 @@ export default function Home() {
             />
           </div>
 
-<div className="flex flex-nowrap justify-center gap-3 sm:gap-4 mb-12 md:mb-16">
+{/* <div className="flex flex-nowrap justify-center gap-3 sm:gap-4 mb-12 md:mb-16">
   <div className="flex items-center gap-2 sm:gap-3 bg-white/5 border border-white/10 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl backdrop-blur-md min-w-0">
     <Calendar className="text-[#ff3e03] size-5 sm:size-[20px] shrink-0" />
     <div className="text-left">
@@ -186,7 +186,7 @@ export default function Home() {
       <p className="text-xs sm:text-sm font-black italic">GOOGLE MEET</p>
     </div>
   </div>
-</div>
+</div> */}
 
           <button onClick={() => setIsModalOpen(true)} className="group relative bg-[#a3e635] text-[#051e12] px-14 py-6 rounded-full font-black italic text-xl tracking-tighter hover:bg-white hover:scale-105 transition-all shadow-[0_20px_50px_rgba(163,230,53,0.3)]">
             SECURE MY SEAT — ₦50,000
