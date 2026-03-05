@@ -183,7 +183,7 @@ export default function Home() {
     <Video className="text-[#a3e635] size-5 sm:size-[20px] shrink-0" />
     <div className="text-left">
       <p className="text-[9px] sm:text-[10px] font-black text-white/40 uppercase tracking-wide">Platform</p>
-      <p className="text-xs sm:text-sm font-black italic">ZOOM WEBINAR</p>
+      <p className="text-xs sm:text-sm font-black italic">GOOGLE MEET</p>
     </div>
   </div>
 </div>
