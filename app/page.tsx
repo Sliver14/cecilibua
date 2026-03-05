@@ -152,7 +152,7 @@ export default function Home() {
 
           <div className="w-full max-w-4xl mx-auto mb-12 px-4 sm:px-6 lg:px-8">
             <Image
-              src="/mainflyer2.jpeg"
+              src="/mainflyer2.jpg"
               alt="The Real Estate Brokerage Blueprint Flyer"
               width={800}               // ← safe placeholder width (can be 600–1200)
               height={1200}             // ← placeholder height – make this larger if your flyer is very tall
