@@ -132,7 +132,7 @@ function SuccessContent() {
           <div className="inline-block px-4 py-1 bg-[#ff3e03] text-white text-[10px] font-black uppercase italic rounded-full mb-6">Action Required</div>
           <h2 className="text-2xl md:text-3xl font-black italic uppercase tracking-tighter mb-6">Join the Private Attendee Group</h2>
           <p className="text-white/70 mb-10 max-w-md">
-            All webinar links, the <strong>Brokerage Blueprint PDF</strong>, and pre-class materials will be shared inside the private WhatsApp group.
+            All webinar links, the <strong>Brokerage Blueprint PDF</strong>, and pre-class materials will be shared inside the private WhatsApp group. We've also sent a confirmation email to your inbox.
           </p>
 
           <button 
