@@ -1,24 +1,18 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 import { motion } from 'framer-motion'
 import { 
-  CheckCircle2, 
   MessageCircle, 
   Video, 
-  Download, 
   ArrowRight, 
-  Copy,
   Calendar,
   Clock,
-  ExternalLink,
   ShieldCheck,
-  Loader2,
-  XCircle
+  Loader2
 } from 'lucide-react'
 
-/* --- SUCCESS PAGE: POST-PAYMENT ONBOARDING --- */
+/* --- SUCCESS PAGE: STATIC POST-PAYMENT ONBOARDING --- */
 
 const SuccessBackground = () => (
   <div className="fixed inset-0 -z-10 bg-[#051e12]">
@@ -30,67 +24,8 @@ const SuccessBackground = () => (
 )
 
 function SuccessContent() {
-  const searchParams = useSearchParams()
-  const email = searchParams.get('email')
-  const [status, setStatus] = useState<'LOADING' | 'PAID' | 'PENDING' | 'NOT_FOUND'>('LOADING')
-
-  useEffect(() => {
-    if (!email) {
-      setStatus('NOT_FOUND')
-      return
-    }
-
-    const checkStatus = async () => {
-      try {
-        const res = await fetch(`/api/register/status?email=${encodeURIComponent(email)}`)
-        const data = await res.json()
-        if (data.success) {
-          setStatus(data.status)
-        } else {
-          setStatus('NOT_FOUND')
-        }
-      } catch (err) {
-        console.error(err)
-        setStatus('NOT_FOUND')
-      }
-    }
-
-    checkStatus()
-  }, [email])
-
   const joinWhatsApp = () => {
     window.open('https://chat.whatsapp.com/HQuDm1kXezD98Ith0bQkAr?mode=gi_t', '_blank')
-  }
-
-  if (status === 'LOADING') {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-12 h-12 text-[#a3e635] animate-spin mb-4" />
-        <p className="text-white/60 font-black italic uppercase tracking-tighter">Verifying Payment...</p>
-      </div>
-    )
-  }
-
-  if (status === 'PENDING') {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-6">
-        <XCircle className="w-20 h-20 text-[#ff3e03] mb-8" />
-        <h1 className="text-4xl font-black italic uppercase tracking-tighter mb-4">Payment <span className="text-[#ff3e03]">Pending</span></h1>
-        <p className="text-white/70 max-w-md mb-8">We haven't confirmed your payment yet. If you've just paid, please wait a few minutes for Zapier to update our records.</p>
-        <button onClick={() => window.location.reload()} className="bg-[#a3e635] text-[#051e12] px-8 py-4 rounded-xl font-black italic uppercase">Refresh Page</button>
-      </div>
-    )
-  }
-
-  if (status === 'NOT_FOUND') {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-6">
-        <XCircle className="w-20 h-20 text-[#ff3e03] mb-8" />
-        <h1 className="text-4xl font-black italic uppercase tracking-tighter mb-4">Access <span className="text-[#ff3e03]">Denied</span></h1>
-        <p className="text-white/70 max-w-md mb-8">We couldn't find a registration for this email. Please ensure you've registered and paid.</p>
-        <a href="/" className="bg-[#a3e635] text-[#051e12] px-8 py-4 rounded-xl font-black italic uppercase">Back to Home</a>
-      </div>
-    )
   }
 
   return (
@@ -111,7 +46,7 @@ function SuccessContent() {
           transition={{ delay: 0.2 }}
         >
           <h1 className="text-4xl md:text-6xl font-black italic uppercase tracking-tighter mb-4">
-              Payment <span className="text-[#a3e635]">Confirmed</span>
+              Registration <span className="text-[#a3e635]">Complete</span>
           </h1>
           <p className="text-white/60 text-lg font-medium">Welcome to the Brokerage Blueprint Masterclass.</p>
         </motion.div>
@@ -132,7 +67,9 @@ function SuccessContent() {
           <div className="inline-block px-4 py-1 bg-[#ff3e03] text-white text-[10px] font-black uppercase italic rounded-full mb-6">Action Required</div>
           <h2 className="text-2xl md:text-3xl font-black italic uppercase tracking-tighter mb-6">Join the Private Attendee Group</h2>
           <p className="text-white/70 mb-10 max-w-md">
-            All webinar links, the <strong>Brokerage Blueprint PDF</strong>, and pre-class materials will be shared inside the private WhatsApp group. We've also sent a confirmation email to your inbox.
+            All webinar links, the <strong>Brokerage Blueprint PDF</strong>, and pre-class materials will be shared inside the private WhatsApp group. 
+            <br/><br/>
+            Check your inbox for a confirmation email with additional details.
           </p>
 
           <button 
