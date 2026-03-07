@@ -13,7 +13,6 @@ model Registration {
   email           String   @unique
   whatsapp        String
   location        String
-  profilePicture  String?  @db.Text // Storing as base64 or URL
   status          Status   @default(PENDING)
   amount          Float
   transactionNote String?  @unique

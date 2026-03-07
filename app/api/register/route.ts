@@ -18,7 +18,6 @@ export async function POST(req: Request) {
     const validatedData = registrationSchema.parse(body)
 
     // Upsert registration: if email already exists, update the data and keep status PENDING
-    // Or just create a new one. The user said "create/update db".
     const registration = await prisma.registration.upsert({
       where: { email: validatedData.email },
       update: {
@@ -27,7 +26,7 @@ export async function POST(req: Request) {
         location: validatedData.location,
         status: 'PENDING',
         amount: validatedData.amount,
-        transactionNote: validatedData.email, // Using email as note for matching
+        transactionNote: validatedData.email,
       },
       create: {
         ...validatedData,
@@ -36,9 +35,6 @@ export async function POST(req: Request) {
       },
     })
 
-    // Construct Selar payment link
-    // Replace YOUR_SELAR_SLUG with the actual product slug from the user.
-    // Selar URLs can sometimes take custom parameters or we just rely on the user filling the note.
     const selarProductSlug = process.env.NEXT_PUBLIC_SELAR_PRODUCT_SLUG || 'uds-masterclass'
     const selarUrl = `https://selar.co/${selarProductSlug}`
 
