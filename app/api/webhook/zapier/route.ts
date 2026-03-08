@@ -75,9 +75,6 @@ export async function POST(req: Request) {
                 </a>
               </p>
               
-              <p>If the link above does not work, you may also use the alternative link below:<br/>
-              <a href="https://chat.whatsapp.com/HQuDm1kXezD98Ith0bQkAr?mode=gi_t">https://chat.whatsapp.com/HQuDm1kXezD98Ith0bQkAr</a></p>
-              
               <p>Important updates and useful resources related to the webinar will be shared in the community as the event approaches.</p>
               
               <p>Kind regards,<br/>
